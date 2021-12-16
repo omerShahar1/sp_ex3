@@ -251,6 +251,5 @@ int main()
     atbash(txt, word);
     printf("\nAnagram Sequences: ");
     anagram(txt, word);
-    printf("\n");
     return 0;
 }
