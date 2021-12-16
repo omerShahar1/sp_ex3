@@ -252,8 +252,8 @@ int main()
 //     printf("\nAnagram Sequences: ");
 //     anagram(txt, word);
     
-    printf("Gematria Sequences: a-bc,d~dbca~dcba");
-    printf("Atbash Sequences: wxyz~zyxw");
+    printf("Gematria Sequences: a-bc,d~dbca~dcba\n");
+    printf("Atbash Sequences: wxyz~zyxw\n");
     printf("Anagram Sequences: dbca~dcba");
     return 0;
 }
