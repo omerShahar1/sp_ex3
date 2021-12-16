@@ -245,15 +245,11 @@ int main()
         }
     }
 
-//     printf("Gematria Sequences: ");
-//     gematria(txt, wordSize);
-//     printf("\nAtbash Sequences: ");
-//     atbash(txt, word);
-//     printf("\nAnagram Sequences: ");
-//     anagram(txt, word);
-    
-    printf("Gematria Sequences: a-bc,d~dbca~dcba\n");
-    printf("Atbash Sequences: wxyz~zyxw\n");
-    printf("Anagram Sequences: dbca~dcba");
+    printf("Gematria Sequences: ");
+    gematria(txt, wordSize);
+    printf("\nAtbash Sequences: ");
+    atbash(txt, word);
+    printf("\nAnagram Sequences: ");
+    anagram(txt, word);
     return 0;
 }
