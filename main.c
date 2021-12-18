@@ -27,7 +27,7 @@ int size(char txt[], int i, int j)
     return sum;
 }
 
-char reverseChar(char ch) // return the reverse char. (if a return z, if B return Y, ...)
+char reverseChar(char ch) // return the reverse char. (if a return z, if B return Y, ...) return null if the char is not legal.
 {
     if(ch >= A && ch <= Z)
     {
@@ -41,7 +41,7 @@ char reverseChar(char ch) // return the reverse char. (if a return z, if B retur
 }
 
 
-int countChar(char ch, char txt[], char word[], int start, int stop)
+int countChar(char ch, char txt[], char word[], int start, int stop) //check if we have the specific char too many times in a sequence
 {
     int count1=0, count2=0, i;
 
@@ -69,60 +69,15 @@ int countChar(char ch, char txt[], char word[], int start, int stop)
 }
 
 
-void checkAtbash(char txt[], char words[], int *first)
-{
-    int i=0, j=0, h=0, count=0; 
-    char ch = reverseChar(words[count]);
-    
-    for(i=0; i<strlen(txt); i++)
-    {
-        if(txt[i] == ch)
-        {
-            j=i;
-            while (j < strlen(txt) && count < strlen(words))
-            {
-                ch = reverseChar(words[count]);
-                if(txt[j] == 10 || txt[j] == 32 || txt[j] == 9 || txt[j] == 11)
-                {//all the options for white space: enter(10), space(32), tab(9) and vertical tab(11)
-                    j++;
-                    continue;
-                }
-                if(txt[j] != ch)
-                {
-                    break;
-                }
-                j++;
-                count++;
-            }
-            if(count == strlen(words)) //if true then print
-            {
-                if(*first == 0)
-                {
-                    printf("~");
-                }
-                for(h=i; h<j; h++)
-                {
-                    printf("%c", txt[h]);
-                }
-                *first = 0;
-            }
-        }
-        count = 0;
-        ch = reverseChar(words[count]);
-    }
-}
-
-
-
 void gematria(char txt[] ,int wordSize)
 {
     int i=0, j=0, tempSize=0, h=0;
     int first = 1;
     char checkFirst;
 
-    for(i=0; i<strlen(txt); i++)
+    for(i=0; i<strlen(txt); i++) //go over the txt and check for correct sequences.
     {
-        checkFirst = reverseChar(txt[i]); // side affect of the function is that it will check id the char is legal or not.
+        checkFirst = reverseChar(txt[i]); // side affect of the function is that it will check if the char is legal or not.
         if(checkFirst == 0) //if the first char is elegal then skip it.
         {
             continue;
@@ -156,22 +111,97 @@ void gematria(char txt[] ,int wordSize)
 
 void atbash(char txt[], char word[])
 {
-    int i=0, end=0; 
-    int first = 1;
-    checkAtbash(txt, word, &first);
-
-    while (word[i] != 0)
+    int i=0, end=0, first = 1; 
+    char reverse[WORD] = {0}; //the reverse word
+    char copy[WORD] = {0}; //copy of the real word
+    strcpy(copy, word);
+    
+    while (word[i] != 0) //count how many real chars we need to adress and change the word chars to the wanted version.
     {
         i++;
         end++;
+        copy[i] = reverseChar(word[i]);
+    }
+    for (i = 0; i < end; i++) //put values in the reverse word
+    {
+        reverse[i] = copy[end-i-1];
     }
 
-    char reverse[WORD] = {0};
-    for (i = 0; i < end; i++)
+    int j=0, h=0, count=0; 
+    char ch;
+    char rch;
+
+    
+    for(i=0; i<strlen(txt); i++) //go over the txt and look for the start of the sequence (any of the two).
     {
-        reverse[i] = word[end-i-1];
-    }
-    checkAtbash(txt, reverse, &first);    
+        ch = copy[0];
+        rch = reverse[0];
+        if(txt[i] == ch) //check sequance of the ordered word
+        {
+            count = 0;
+            j=i;
+            while (j < strlen(txt) && count < strlen(copy))
+            {
+                ch = copy[count];
+                if(txt[j] == 10 || txt[j] == 32 || txt[j] == 9 || txt[j] == 11)
+                {//all the options for white space: enter(10), space(32), tab(9) and vertical tab(11)
+                    j++;
+                    continue;
+                }
+                if(txt[j] != ch) //wrong sequance then break the while loop.
+                {
+                    break;
+                }
+                j++;
+                count++;
+            }
+            if(count == strlen(copy)) //if true then print
+            {
+                if(first == 0)
+                {
+                    printf("~");
+                }
+                for(h=i; h<j; h++) //print answer
+                {
+                    printf("%c", txt[h]);
+                }
+                first = 0;
+            }
+        }
+
+        if(txt[i] == rch) //check sequance of the reverse word
+        {
+            count = 0;
+            j=i;
+            while (j < strlen(txt) && count < strlen(reverse))
+            {
+                rch = reverse[count];
+                if(txt[j] == 10 || txt[j] == 32 || txt[j] == 9 || txt[j] == 11)
+                {//all the options for white space: enter(10), space(32), tab(9) and vertical tab(11)
+                    j++;
+                    continue;
+                }
+                if(txt[j] != rch) //wrong sequance then break the while loop.
+                {
+                    break;
+                }
+                j++;
+                count++;
+            }
+            if(count == strlen(reverse)) //if true then print
+            {
+                if(first == 0)
+                {
+                    printf("~");
+                }
+                for(h=i; h<j; h++) //print answer
+                {
+                    printf("%c", txt[h]);
+                }
+                first = 0;
+            }
+        }
+    }  
 }
 
 void anagram(char txt[], char word[])
