@@ -115,17 +115,15 @@ void atbash(char txt[], char word[])
     char reverse[WORD] = {0}; //the reverse word
     char copy[WORD] = {0}; //copy of the real word
     
-    while (word[i] != 0) //count how many real chars we need to adress and change the word chars to the wanted version.
+    while (word[i] != 0) //count how many real chars we need to adress.
     {
         i++;
         end++;
-        copy[i] = word[i];
     }
-    for (i = 0; i < end; i++) //put values in the reverse word
+    for (i = 0; i < end; i++) //put values
     {
-        reverse[i] = word[end-i-1];
-        copy[i] = reverseChar(copy[i]);
-        reverse[i] = reverseChar(reverse[i]);
+        copy[i] = reverseChar(word[i]);
+        reverse[i] = reverseChar(word[end-i-1]);
     }
 
     int j=0, h=0, count=0; 
