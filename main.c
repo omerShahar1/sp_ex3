@@ -10,7 +10,7 @@
 #define z 122
 
 
-int size(char txt[], int i, int j)
+int size(char txt[], int i, int j) //return size of sequance of chars
 {
     int sum = 0, h;
     for(h=i; h<j; h++)
