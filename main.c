@@ -279,6 +279,7 @@ int main()
     printf("\nAtbash Sequences: ");
     atbash(txt, word);
     printf("\nAnagram Sequences: ");
+    printf("\n");
     anagram(txt, word);
     return 0;
 }
