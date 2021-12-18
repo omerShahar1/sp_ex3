@@ -10,7 +10,7 @@
 #define z 122
 
 
-int size(char txt[], int i, int j) //return size of sequance of chars
+int size(char txt[], int i, int j)
 {
     int sum = 0, h;
     for(h=i; h<j; h++)
@@ -114,17 +114,18 @@ void atbash(char txt[], char word[])
     int i=0, end=0, first = 1; 
     char reverse[WORD] = {0}; //the reverse word
     char copy[WORD] = {0}; //copy of the real word
-    strcpy(copy, word);
     
     while (word[i] != 0) //count how many real chars we need to adress and change the word chars to the wanted version.
     {
         i++;
         end++;
-        copy[i] = reverseChar(word[i]);
+        copy[i] = word[i];
     }
     for (i = 0; i < end; i++) //put values in the reverse word
     {
-        reverse[i] = copy[end-i-1];
+        reverse[i] = word[end-i-1];
+        copy[i] = reverseChar(copy[i]);
+        reverse[i] = reverseChar(reverse[i]);
     }
 
     int j=0, h=0, count=0; 
@@ -210,7 +211,7 @@ void anagram(char txt[], char word[])
     int first = 1;
     for(i=0; i<strlen(txt); i++)
     {
-        if(txt[i] == 32)
+        if(txt[i] == 10 || txt[i] == 32 || txt[i] == 9 || txt[i] == 11)
         {//all the options for white space: enter(10), space(32), tab(9) and vertical tab(11)
             continue;
         }
@@ -220,7 +221,7 @@ void anagram(char txt[], char word[])
             j=i;
             while(count < strlen(word) && j < strlen(txt))
             {
-                if(txt[j] == 32)
+                if(txt[j] == 10 || txt[j] == 32 || txt[j] == 9 || txt[j] == 11)
                 {//all the options for white space: enter(10), space(32), tab(9) and vertical tab(11)
                     j++;
                     continue;
