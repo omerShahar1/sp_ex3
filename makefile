@@ -2,6 +2,7 @@ CC=gcc
 MAIN=main.o
 FLAGS= -Wall -g
 
+
 all: stringProg
 
 stringProg: $(MAIN)
